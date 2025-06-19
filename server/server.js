@@ -16,6 +16,13 @@ app.use(morgan("dev"));
 
 Connectdb();
 
+app.use("/",(req,res)=>{
+  try {
+    res.send("Hello")
+  } catch (error) {
+    console.log(error);
+  }
+})
 app.use("/balaji", HistoryRouter);
 app.use("/auth", authRouter);
 
