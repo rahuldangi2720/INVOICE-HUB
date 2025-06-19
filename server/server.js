@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 
 Connectdb();
 
-app.use("/",(req,res)=>{
+app.get("/",(req,res)=>{
   try {
     res.send("Hello")
   } catch (error) {
