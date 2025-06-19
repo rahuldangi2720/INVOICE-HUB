@@ -26,6 +26,6 @@ app.get("/",(req,res)=>{
 app.use("/balaji", HistoryRouter);
 app.use("/auth", authRouter);
 
-app.listen(8000, () => {
+app.listen(process.env.PORT, () => {
   console.log("server is running");
 });
