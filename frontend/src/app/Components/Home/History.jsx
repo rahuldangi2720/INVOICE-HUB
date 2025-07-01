@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   UserIcon,
   MapPinIcon,
@@ -10,14 +10,20 @@ import {
   IndianRupeeIcon,
   ClockIcon,
 } from "lucide-react";
+import { AuthContext } from "@/app/context/AuthContext";
+import { baseURL } from "@/Utils/Utils";
 
 const History = () => {
   const [historyData, setHistoryData] = useState([]);
+  const {AuthData} = useContext(AuthContext)
+  
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/balaji/get");
+        const response = await axios.get(`${baseURL}/balaji/get`,{
+          params: { userId:AuthData.userId}
+        });
         setHistoryData(response.data.data);
         console.log(response.data.data);
         

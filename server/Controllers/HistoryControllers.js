@@ -2,7 +2,7 @@ const HistoryModel = require("../Model/HistoryModel");
 
 exports.AddHistory = async (req, res) => {
   try {
-    const { transportDetails, customerDetails, items, igstPercent, sgstPercent, cgstPercent, code } = req.body;
+    const {userId, transportDetails, customerDetails, items, igstPercent, sgstPercent, cgstPercent, code } = req.body;
     console.log(code);
     
    
@@ -32,7 +32,8 @@ exports.AddHistory = async (req, res) => {
       igstAmount,
       totalAfterTax,
       State:code.state,
-      InvoiceNo:code.InvoiceNo
+      InvoiceNo:code.InvoiceNo,
+      userId:userId
     };
 
     const addhistory = new HistoryModel(dataToSave);
@@ -47,7 +48,10 @@ exports.AddHistory = async (req, res) => {
 
 exports.getAllHistory = async (req, res) => {
   try {
-    const allHistory = await HistoryModel.find().sort({ createdAt: -1 });
+    const { userId } = req.query;
+    console.log(userId);
+    
+    const allHistory = await HistoryModel.find({ userId: userId })
     res.status(200).json({ message: "Fetched History Successfully", data: allHistory });
   } catch (error) {
     console.error("❌ Error in getAllHistory:", error);

@@ -18,7 +18,10 @@ export const Signin = ({ setMode }) => {
     try {
       if (formData?.email && formData?.password) {
         const data = await Usersignin(formData);
+       
+        
         if (data) {
+          
           dispatch({ type: "SIGN_IN", payload: data });
         } else {
           alert("Invalid Email or Password");

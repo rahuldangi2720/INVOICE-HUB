@@ -16,6 +16,10 @@ const HistorySchema = new mongoose.Schema({
     },
   ],
 
+  userId:{
+     type:String
+  },
+
   customerDetails: {
     customername: { type: String, required: true },
     address: { type: String, required: true },

@@ -1,7 +1,9 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import axios from "axios";
 import signature from "./Image/signature.png";
+import { AuthContext } from "@/app/context/AuthContext";
+import { baseURL } from "@/Utils/Utils";
 export default function Dashboard({ pdfRef, downloadPDF }) {
   // console.log(signature);
 
@@ -28,7 +30,7 @@ export default function Dashboard({ pdfRef, downloadPDF }) {
 
   const [code, SetCode] = useState({});
 
-  console.log(code);
+
 
   const [cgstPercent, setCgstPercent] = useState(0);
   const [sgstPercent, setSgstPercent] = useState(0);
@@ -84,6 +86,7 @@ export default function Dashboard({ pdfRef, downloadPDF }) {
   const sgstAmount = (totalAmount * sgstPercent) / 100;
   const igstAmount = (totalAmount * igstPercent) / 100;
   const totalAfterTax = totalAmount + cgstAmount + sgstAmount + igstAmount;
+  const {AuthData} = useContext(AuthContext)
 
   async function AddData() {
     try {
@@ -95,10 +98,11 @@ export default function Dashboard({ pdfRef, downloadPDF }) {
         sgstPercent,
         cgstPercent,
         code,
+        userId:AuthData.userId
       };
 
       const response = await axios.post(
-        "http://localhost:8000/balaji/post",
+        `${baseURL}/balaji/post`,
         body
       );
       if (response) alert("History Successfully Saved");

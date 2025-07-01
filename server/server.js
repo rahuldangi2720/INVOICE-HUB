@@ -10,7 +10,13 @@ const HistoryRouter = require("./Routes/HistoryRoute");
 const authRouter = require("./Routes/auth");
 dotenv.config({ path: "./Config/config.env" });
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin:process.env.CORS_PORT||"http://localhost:3000", 
+    methods: ["GET", "POST","PUT"],
+    credentials: true,
+  })
+);
 app.use(bodyparser.json({ limit: "30mb" }));
 app.use(morgan("dev"));
 

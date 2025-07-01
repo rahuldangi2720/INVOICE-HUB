@@ -55,6 +55,8 @@ function reducer(state,action){
     
     switch (action.type) {
         case "SIGN_IN":
+          
+            
         const singinState={...action.payload}
         localStorage.setItem("UserData",JSON.stringify(singinState));
         return singinState;
